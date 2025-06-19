@@ -39,8 +39,8 @@ public class ApiResponseEntity<T> {
         this.message = message;
     }
 
-    public ApiResponseEntity(Instant timeStamp,boolean success, String error, HttpStatus statusCode, String message, T data,
-                             HttpHeaders headers) {
+    public ApiResponseEntity(Instant timeStamp,boolean success, String error, HttpStatus statusCode, String message,
+                             HttpHeaders headers,T data) {
         this.timeStamp = timeStamp;
         this.success = success;
         this.error = error;
@@ -50,7 +50,7 @@ public class ApiResponseEntity<T> {
         this.headers = headers;
     }
 
-    public ApiResponseEntity(Instant timeStamp,boolean success, HttpStatus statusCode, T data, HttpHeaders headers) {
+    public ApiResponseEntity(Instant timeStamp,boolean success, HttpStatus statusCode, HttpHeaders headers, T data) {
         this.timeStamp = timeStamp;
         this.success = success;
         this.statusCode = statusCode;
@@ -73,11 +73,18 @@ public class ApiResponseEntity<T> {
         this.message = message;
     }
 
-    public ApiResponseEntity(boolean success, T data, HttpHeaders header, HttpStatus statusCode) {
+    public ApiResponseEntity(boolean success, HttpHeaders header, HttpStatus statusCode,T data) {
         this.timeStamp = timeStamp;
         this.success = success;
         this.data = data;
         this.headers = header;
         this.statusCode = statusCode;
+    }
+    public ApiResponseEntity(Instant timestamp,boolean success,String message,HttpStatus statusCode, T data){
+        this.timeStamp = timestamp;
+        this.success = success;
+        this.message = message;
+        this.statusCode = statusCode;
+        this.data = data;
     }
 }

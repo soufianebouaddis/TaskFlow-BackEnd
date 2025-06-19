@@ -20,5 +20,4 @@ import java.util.List;
 public class Manager extends User {
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Developer> developers = new ArrayList<>();
-
 }
