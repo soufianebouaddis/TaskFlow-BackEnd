@@ -24,6 +24,9 @@ public class SpaCsrfTokenRequestHandler extends CsrfTokenRequestAttributeHandler
     public String resolveCsrfTokenValue(HttpServletRequest request, CsrfToken csrfToken) {
         String headerValue = request.getHeader(csrfToken.getHeaderName());
         String paramValue = request.getParameter(csrfToken.getParameterName());
+        System.out.println("Expected token: " + csrfToken.getToken());
+        System.out.println("Header token: " + headerValue);
+        System.out.println("Parameter token: " + paramValue);
         if (StringUtils.hasText(request.getHeader(csrfToken.getHeaderName()))) {
             return super.resolveCsrfTokenValue(request, csrfToken);
         }

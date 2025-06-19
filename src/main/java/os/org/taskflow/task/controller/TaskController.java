@@ -2,6 +2,7 @@ package os.org.taskflow.task.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import os.org.taskflow.common.ApiResponseEntity;
 import os.org.taskflow.task.dto.TaskDTO;
@@ -22,6 +23,7 @@ public class TaskController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('MANAGER')")
     public ApiResponseEntity<Optional<Task>> addNewTask(@RequestBody @Valid TaskDTO taskDTO){
         try{
             return new ApiResponseEntity<>(
@@ -34,12 +36,13 @@ public class TaskController {
             return new ApiResponseEntity<>(
                     Instant.now(),
                     false,
-                    "Error during add new task to the system",
+                    "Error : "+ex.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null);
         }
     }
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('MANAGER','DEVELOPER')")
     public ApiResponseEntity<List<Task>> findAllTasks(){
         return new ApiResponseEntity<>(
                 Instant.now(),
@@ -51,6 +54,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('MANAGER','DEVELOPER')")
     public ApiResponseEntity<Optional<Task>> updateTask(@PathVariable("id")Long id , @RequestBody @Valid Task task){
         return new ApiResponseEntity<>(
                 Instant.now(),
@@ -62,6 +66,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('MANAGER')")
     public ApiResponseEntity<Optional<Task>> deleteTask(@PathVariable("id")Long id){
         return new ApiResponseEntity<>(
                 Instant.now(),

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface ManagerRepository extends JpaRepository<Manager, UUID> {
     @EntityGraph(attributePaths = "developers")
-    Optional<Manager> findById(Long id);
+    Optional<Manager> findById(UUID id);
 
     @EntityGraph(attributePaths = "developers")
     List<Manager> findAll();

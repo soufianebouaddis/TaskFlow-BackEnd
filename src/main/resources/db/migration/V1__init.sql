@@ -33,7 +33,7 @@ CREATE TABLE t_developer
 );
 CREATE TABLE t_task
 (
-    id           UUID PRIMARY KEY         DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY,
     task_Label VARCHAR(500),
     task_state   VARCHAR(50),
     created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

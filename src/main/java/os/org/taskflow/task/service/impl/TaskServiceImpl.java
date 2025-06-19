@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Optional<Task> create(TaskDTO taskDTO) {
         Task presistTask = new Task();
-        presistTask.setTaskLibelle(taskDTO.getTaskLabel());
+        presistTask.setTaskLabel(taskDTO.getTaskLabel());
         presistTask.setTaskState(taskDTO.getTaskState());
         presistTask.setCreatedAt(Instant.now());
         return Optional.of(taskRepository.save(presistTask));
@@ -34,8 +34,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Optional<Task> update(Long id, Task Task) {
         return Optional.ofNullable(taskRepository.findById(id).map((it) -> {
-            it.setTaskLibelle(Task.getTaskLibelle());
-            it.setTaskLibelle(Task.getTaskLibelle());
+            it.setTaskLabel(Task.getTaskLabel());
+            it.setTaskState(Task.getTaskState());
             it.setUpdateAt(Instant.now());
             return taskRepository.save(it);
         }).orElseThrow(

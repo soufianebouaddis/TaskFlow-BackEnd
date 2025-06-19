@@ -27,23 +27,31 @@ public class AuthController {
 
     @PostMapping("register")
     public ApiResponseEntity<?> register(@RequestBody @Valid RegisterRequest registerRequest){
-        return new ApiResponseEntity(
-                Instant.now(),
-                true,
-                userService.register(registerRequest),
-                HttpStatus.CREATED
-                );
+        try{
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    userService.register(registerRequest),
+                    HttpStatus.CREATED
+            );
+        }catch (Exception ex){
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    "Error : " + ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
     }
     @PostMapping("login")
-    public ApiResponseEntity<?> register(@RequestBody @Valid LoginRequest loginRequest, HttpServletResponse response){
+    public ApiResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest, HttpServletResponse response){
         Map<String, ResponseCookie> cookieMap = userService.authenticate(loginRequest);
         response.addHeader(HttpHeaders.SET_COOKIE, cookieMap.get(Constant.ACCESS_TOKEN).toString());
-
         return new ApiResponseEntity(
                 Instant.now(),
                 true,
                 "Welcome",
-                HttpStatus.CREATED
+                HttpStatus.OK
         );
     }
 
@@ -53,7 +61,7 @@ public class AuthController {
                 Instant.now(),
                 true,
                 userService.profile(),
-                HttpStatus.CREATED
+                HttpStatus.OK
         );
     }
 }
