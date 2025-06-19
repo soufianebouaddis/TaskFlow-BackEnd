@@ -3,6 +3,9 @@ CREATE TABLE t_role
     id        BIGSERIAL PRIMARY KEY,
     role_name VARCHAR(255) NOT NULL
 );
+INSERT INTO t_role (role_name) VALUES ('DEVELOPER');
+INSERT INTO t_role (role_name) VALUES ('MANAGER');
+INSERT INTO t_role (role_name) VALUES ('USER');
 CREATE TABLE t_user
 (
     id         UUID PRIMARY KEY         DEFAULT gen_random_uuid(),

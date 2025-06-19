@@ -39,3 +39,7 @@ management:
       show-details: when-authorized
     metrics:
       access: none
+
+jwt-keys:
+  private_key: ${PRIV_KEY}
+  public_key: ${PUB_KEY}
