@@ -63,6 +63,9 @@ public interface UserMapper {
     @Mapping(target = "developerDetails.developerType", source = "developerType")
     @Mapping(target = "developerDetails.tasks", source = "tasks")
     @Mapping(target = "team", ignore = true)
+    @Mapping(target = "firstName", source = "firstName")
+    @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "email", source = "email")
     Profile developerToProfile(Developer developer);
 
     @Mapping(target = "role", expression = "java(\"MANAGER\")")
@@ -77,8 +80,13 @@ public interface UserMapper {
     List<TaskDTO> toTaskDTOs(List<Task> tasks);
 
     // Mapping each Developer to DeveloperDTO
-    @Mapping(target = "developerType", source = "developerType")
-    @Mapping(target = "tasks", source = "tasks")
+    @Mappings({
+            @Mapping(target = "firstName", source = "firstName"),
+            @Mapping(target = "lastName", source = "lastName"),
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "developerType", source = "developerType"),
+            @Mapping(target = "tasks", source = "tasks")
+    })
     DeveloperDTO toDeveloperDTO(Developer developer);
     List<DeveloperDTO> toDeveloperDTOs(List<Developer> developers);
 }

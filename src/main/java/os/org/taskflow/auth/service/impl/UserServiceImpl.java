@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import os.org.taskflow.auth.dto.Profile;
+import os.org.taskflow.auth.dto.UpdateRequest;
 import os.org.taskflow.auth.entity.Role;
 import os.org.taskflow.auth.mapper.UserMapper;
 import os.org.taskflow.auth.repository.RoleRepository;
@@ -18,10 +19,7 @@ import os.org.taskflow.auth.repository.UserRepository;
 import os.org.taskflow.auth.service.UserService;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
@@ -116,6 +114,17 @@ public class UserServiceImpl implements UserService {
                         return profile;
                     }
                 });
+    }
+
+    @Override
+    public void updateProfile(UUID id, UpdateRequest updateRequest) {
+        Optional<User> user = this.userRepository.findById(id);
+        if(user.isPresent()){
+            user.get().setFirstName(updateRequest.getFirstName());
+            user.get().setLastName(updateRequest.getLastName());
+            user.get().setUpdateAt(Instant.now());
+            this.userRepository.save(user.get());
+        }
     }
 
     public Authentication authenticateUser(LoginRequest authRequestDTO) {

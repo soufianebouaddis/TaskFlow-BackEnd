@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import os.org.taskflow.auth.dto.LoginRequest;
 import os.org.taskflow.auth.dto.Profile;
 import os.org.taskflow.auth.dto.RegisterRequest;
+import os.org.taskflow.auth.dto.UpdateRequest;
 import os.org.taskflow.auth.service.UserService;
 import os.org.taskflow.common.ApiResponseEntity;
 import os.org.taskflow.constant.Constant;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
@@ -64,4 +66,26 @@ public class AuthController {
                 HttpStatus.OK
         );
     }
+
+    @PostMapping("{id}")
+    public ApiResponseEntity<Void> updateProfile(@PathVariable UUID id, @RequestBody @Valid UpdateRequest updateRequest){
+        try{
+            this.userService.updateProfile(id,updateRequest);
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    "Profile updated successfully",
+                    HttpStatus.OK,
+                    null
+            );
+        }catch (Exception ex){
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    "Error : " + ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
+    }
+
 }

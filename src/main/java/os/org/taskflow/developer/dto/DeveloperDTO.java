@@ -18,6 +18,9 @@ import java.util.List;
 @Getter
 @Setter
 public class DeveloperDTO {
+    private String firstName;
+    private String lastName;
+    private String email;
     @Enumerated(EnumType.STRING)
     private DeveloperType developerType;
     private List<TaskDTO> tasks = new ArrayList<>();
