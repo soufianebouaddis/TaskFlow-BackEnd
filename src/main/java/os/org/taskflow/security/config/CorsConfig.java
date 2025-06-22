@@ -19,6 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders(
                         HttpHeaders.AUTHORIZATION,
                         HttpHeaders.CONTENT_TYPE,
+                        "X-XSRF-TOKEN",
                         HttpHeaders.SET_COOKIE,
                         HttpHeaders.ACCEPT)
                 .allowedMethods(
@@ -27,7 +28,6 @@ public class CorsConfig implements WebMvcConfigurer {
                         HttpMethod.PUT.name(),
                         HttpMethod.DELETE.name())
                 .maxAge(MAX_AGE)
-                .allowedOriginPatterns("**")
                 .allowedOrigins("http://localhost:5173")
                 .allowCredentials(true);
     }

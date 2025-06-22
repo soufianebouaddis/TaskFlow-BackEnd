@@ -97,14 +97,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<Profile> profile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetail = (UserDetails) authentication.getPrincipal();
-        String usernameFromAccessToken = userDetail.getUsername();
-        Optional<User> user = userRepository.findUserByEmail(usernameFromAccessToken);
-        if (user.isPresent()) {
-            Optional<User> u = user;
-            return Optional.ofNullable(userMapper.userToProfile(u.get()));
-        }
-        return Optional.of(new Profile());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
+        return userRepository.findUserByEmail(email)
+                .map(user -> {
+                    if (user instanceof Developer developer) {
+                        return userMapper.developerToProfile(developer);
+                    } else if (user instanceof Manager manager) {
+                        return userMapper.managerToProfile(manager);
+                    } else {
+                        Profile profile = new Profile();
+                        profile.setId(user.getId());
+                        profile.setFirstName(user.getFirstName());
+                        profile.setLastName(user.getLastName());
+                        profile.setEmail(user.getEmail());
+                        profile.setRole(user.getRole().getRoleName());
+                        return profile;
+                    }
+                });
     }
 
     public Authentication authenticateUser(LoginRequest authRequestDTO) {

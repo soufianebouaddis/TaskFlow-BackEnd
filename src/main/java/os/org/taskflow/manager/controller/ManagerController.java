@@ -25,12 +25,36 @@ public class ManagerController {
     @PreAuthorize("hasAuthority('MANAGER')")
     public ApiResponseEntity<?> assignedTaskToDeveloper(@PathVariable Long taskId, @PathVariable UUID developerId){
         try{
-            return new ApiResponseEntity(
+            managerService.assignedTaskToDeveloper(taskId,developerId);
+            return new ApiResponseEntity<>(
                     Instant.now(),
                     true,
                     "Task assigned to developer successfully",
                     HttpStatus.OK,
-                    managerService.assignedTaskToDeveloper(taskId,developerId)
+                    null
+            );
+        }catch (Exception ex){
+            return new ApiResponseEntity<>(
+                    Instant.now(),
+                    false,
+                    "Error : "+ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
+    }
+
+
+    @PostMapping("/team/{managerId}/{developerId}")
+    @PreAuthorize("hasAuthority('MANAGER')")
+    public ApiResponseEntity<?> addDeveloperToTeam(@PathVariable UUID managerId,@PathVariable UUID developerId){
+        try{
+            managerService.addDeveloperToTeam(managerId,developerId);
+            return new ApiResponseEntity<>(
+                    Instant.now(),
+                    true,
+                    "Developer added to team successfully",
+                    HttpStatus.OK,
+                    null
             );
         }catch (Exception ex){
             return new ApiResponseEntity<>(
