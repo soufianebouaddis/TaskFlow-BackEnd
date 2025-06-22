@@ -1,10 +1,13 @@
 package os.org.taskflow.auth.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import os.org.taskflow.auth.dto.LoginRequest;
 import os.org.taskflow.auth.dto.Profile;
@@ -22,9 +25,10 @@ import java.util.UUID;
 @RequestMapping("/api/v1/auth/")
 public class AuthController {
     private final UserService userService;
-
-    public AuthController(UserService userService) {
+    private final SecurityContextLogoutHandler logoutHandler;
+    public AuthController(UserService userService, SecurityContextLogoutHandler logoutHandler) {
         this.userService = userService;
+        this.logoutHandler = logoutHandler;
     }
 
     @PostMapping("register")
@@ -67,7 +71,7 @@ public class AuthController {
         );
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ApiResponseEntity<Void> updateProfile(@PathVariable UUID id, @RequestBody @Valid UpdateRequest updateRequest){
         try{
             this.userService.updateProfile(id,updateRequest);
@@ -88,4 +92,25 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/logout")
+    public ApiResponseEntity<?> logout(Authentication authentication, HttpServletRequest request,
+                                       HttpServletResponse response) {
+        try {
+            this.logoutHandler.logout(request, response, authentication);
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    "User Logout successfully",
+                    HttpStatus.OK,
+                    null
+            );
+        } catch (Exception ex) {
+            return new ApiResponseEntity(
+                    Instant.now(),
+                    true,
+                    "Error : " + ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
+    }
 }

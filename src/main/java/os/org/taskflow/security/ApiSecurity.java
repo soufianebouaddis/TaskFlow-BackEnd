@@ -91,7 +91,7 @@ public class ApiSecurity {
                         })
                         .invalidateHttpSession(true)
                         .deleteCookies(
-                                Constant.REFRESH_TOKEN,
+                                "XSRF-TOKEN",
                                 Constant.ACCESS_TOKEN)
                         .clearAuthentication(true)
                 )

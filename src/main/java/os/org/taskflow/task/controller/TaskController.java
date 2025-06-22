@@ -68,12 +68,22 @@ public class TaskController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('MANAGER')")
     public ApiResponseEntity<Optional<Task>> deleteTask(@PathVariable("id")Long id){
-        return new ApiResponseEntity<>(
-                Instant.now(),
-                true,
-                "Task deleted successfully",
-                HttpStatus.OK,
-                taskService.delete(id)
-        );
+        try{
+            taskService.delete(id);
+            return new ApiResponseEntity<>(
+                    Instant.now(),
+                    true,
+                    "Task deleted successfully",
+                    HttpStatus.OK,
+                    null
+                    );
+        }catch (Exception ex){
+            return new ApiResponseEntity<>(
+                    Instant.now(),
+                    false,
+                    "Error : "+ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null);
+        }
     }
 }

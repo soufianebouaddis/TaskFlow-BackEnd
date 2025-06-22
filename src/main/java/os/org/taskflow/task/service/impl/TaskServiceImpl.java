@@ -52,12 +52,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Optional<Task> delete(Long id) {
+    public void delete(Long id) {
         Optional<Task> deletedTask = taskRepository.findById(id);
         if(deletedTask.isPresent()){
             taskRepository.deleteById(id);
-            return deletedTask;
         }
-        return Optional.empty();
     }
 }

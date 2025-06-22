@@ -10,5 +10,5 @@ public interface TaskService {
     Optional<Task> create(TaskDTO taskDTO);
     Optional<Task> update(Long id,Task Task);
     List<Task> findAll();
-    Optional<Task> delete(Long id);
+    void delete(Long id);
 }

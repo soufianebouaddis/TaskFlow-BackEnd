@@ -1,5 +1,6 @@
 package os.org.taskflow.developer.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,10 @@ public class Developer extends User {
     private DeveloperType developerType;
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    @JsonBackReference
+    @JsonIgnore
     private Manager manager;
     @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 
 }

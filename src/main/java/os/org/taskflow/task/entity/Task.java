@@ -1,6 +1,7 @@
 package os.org.taskflow.task.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,6 @@ public class Task {
     private Instant updateAt;
     @ManyToOne
     @JoinColumn(name = "developer_id")
-    @JsonBackReference
+    @JsonIgnore
     private Developer developer;
 }

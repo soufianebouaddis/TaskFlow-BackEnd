@@ -83,7 +83,7 @@ public interface UserMapper {
     })
     Profile managerToProfile(Manager manager);
 
-
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "taskLabel", source = "taskLabel")
     @Mapping(target = "taskState", source = "taskState")
     TaskDTO toTaskDTO(Task task);

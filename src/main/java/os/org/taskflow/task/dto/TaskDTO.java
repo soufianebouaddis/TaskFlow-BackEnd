@@ -15,6 +15,7 @@ import os.org.taskflow.task.entity.TaskState;
 @Getter
 @Setter
 public class TaskDTO {
+    public Long id;
     @NotBlank(message = "Task Label is required")
     @Size(min = 2, max = 30, message = "Task Label must be between 2 and 30 characters")
     private String taskLabel;
