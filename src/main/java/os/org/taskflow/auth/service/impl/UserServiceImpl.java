@@ -98,23 +98,25 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
 
-        return userRepository.findUserByEmail(email)
-                .map(user -> {
-                    if (user instanceof Developer developer) {
-                        return userMapper.developerToProfile(developer);
-                    } else if (user instanceof Manager manager) {
-                        return userMapper.managerToProfile(manager);
-                    } else {
-                        Profile profile = new Profile();
-                        profile.setId(user.getId());
-                        profile.setFirstName(user.getFirstName());
-                        profile.setLastName(user.getLastName());
-                        profile.setEmail(user.getEmail());
-                        profile.setRole(user.getRole().getRoleName());
-                        return profile;
-                    }
-                });
+        return userRepository.findUserByEmail(email).map(user -> {
+            if (user instanceof Developer developer) {
+                return userMapper.developerToProfile(developer);
+            } else if (user instanceof Manager manager) {
+                return userMapper.managerToProfile(manager);
+            } else {
+                // if user is not instanceof developer or manager fallback case here
+                Profile profile = new Profile();
+                profile.setId(user.getId());
+                profile.setFirstName(user.getFirstName());
+                profile.setLastName(user.getLastName());
+                profile.setEmail(user.getEmail());
+                profile.setPassword(user.getPassword());
+                profile.setRole(user.getRole().getRoleName());
+                return profile;
+            }
+        });
     }
+
 
     @Override
     public void updateProfile(UUID id, UpdateRequest updateRequest) {

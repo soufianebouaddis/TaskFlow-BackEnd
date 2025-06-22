@@ -59,18 +59,28 @@ public interface UserMapper {
     Developer toDeveloper(RegisterRequest request);
 
 
-    @Mapping(target = "role", expression = "java(\"DEVELOPER\")")
-    @Mapping(target = "developerDetails.developerType", source = "developerType")
-    @Mapping(target = "developerDetails.tasks", source = "tasks")
-    @Mapping(target = "team", ignore = true)
-    @Mapping(target = "firstName", source = "firstName")
-    @Mapping(target = "lastName", source = "lastName")
-    @Mapping(target = "email", source = "email")
+    @Mappings({
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "firstName", source = "firstName"),
+            @Mapping(target = "lastName", source = "lastName"),
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "password", source = "password"),
+            @Mapping(target = "role", expression = "java(\"DEVELOPER\")"),
+            @Mapping(target = "developerDetails.tasks", source = "tasks"),
+            @Mapping(target = "developerDetails.team", ignore = true)
+    })
     Profile developerToProfile(Developer developer);
 
-    @Mapping(target = "role", expression = "java(\"MANAGER\")")
-    @Mapping(target = "team", source = "developers")
-    @Mapping(target = "developerDetails", ignore = true)
+    @Mappings({
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "firstName", source = "firstName"),
+            @Mapping(target = "lastName", source = "lastName"),
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "password", source = "password"),
+            @Mapping(target = "role", expression = "java(\"MANAGER\")"),
+            @Mapping(target = "developerDetails.team", source = "developers"),
+            @Mapping(target = "developerDetails.tasks", ignore = true)
+    })
     Profile managerToProfile(Manager manager);
 
 
