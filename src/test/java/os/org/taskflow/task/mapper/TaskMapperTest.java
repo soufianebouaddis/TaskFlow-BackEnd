@@ -35,6 +35,5 @@ public class TaskMapperTest {
         assertNotNull(dto);
         assertEquals("Test Task", dto.getTaskLabel());
         assertEquals(TaskState.TODO, dto.getTaskState());
-        // If TaskDTO has id, assertEquals(1L, dto.getId());
     }
 } 

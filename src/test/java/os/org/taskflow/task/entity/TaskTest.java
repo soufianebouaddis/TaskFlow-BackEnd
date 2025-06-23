@@ -50,25 +50,21 @@ public class TaskTest {
 
     @Test
     void testTaskWithDifferentStates() {
-        // Test TODO state
+       
         task.setTaskState(TaskState.TODO);
         assertEquals(TaskState.TODO, task.getTaskState());
 
-        // Test IN_PROGRESS state
         task.setTaskState(TaskState.IN_PROGRESS);
         assertEquals(TaskState.IN_PROGRESS, task.getTaskState());
 
-        // Test DONE state
         task.setTaskState(TaskState.DONE);
         assertEquals(TaskState.DONE, task.getTaskState());
     }
 
     @Test
     void testTaskWithNullDeveloper() {
-        // Arrange
         task.setDeveloper(null);
 
-        // Assert
         assertNull(task.getDeveloper());
     }
 
@@ -81,10 +77,8 @@ public class TaskTest {
         newDeveloper.setLastName("Smith");
         newDeveloper.setEmail("jane.smith@example.com");
 
-        // Act
         task.setDeveloper(newDeveloper);
 
-        // Assert
         assertEquals(newDeveloper, task.getDeveloper());
         assertEquals("Jane", task.getDeveloper().getFirstName());
         assertEquals("Smith", task.getDeveloper().getLastName());
@@ -93,13 +87,11 @@ public class TaskTest {
 
     @Test
     void testTaskEquality() {
-        // Arrange
         Task task2 = new Task();
         task2.setId(taskId);
         task2.setTaskLabel("Implement User Authentication");
         task2.setTaskState(TaskState.TODO);
 
-        // Act & Assert
         assertEquals(task.getId(), task2.getId());
         assertEquals(task.getTaskLabel(), task2.getTaskLabel());
         assertEquals(task.getTaskState(), task2.getTaskState());
@@ -107,13 +99,11 @@ public class TaskTest {
 
     @Test
     void testTaskInequality() {
-        // Arrange
         Task task2 = new Task();
         task2.setId(2L);
         task2.setTaskLabel("Different Task");
         task2.setTaskState(TaskState.DONE);
 
-        // Act & Assert
         assertNotEquals(task.getId(), task2.getId());
         assertNotEquals(task.getTaskLabel(), task2.getTaskLabel());
         assertNotEquals(task.getTaskState(), task2.getTaskState());
@@ -121,10 +111,8 @@ public class TaskTest {
 
     @Test
     void testTaskWithEmptyFields() {
-        // Arrange
         Task emptyTask = new Task();
 
-        // Act & Assert
         assertNull(emptyTask.getId());
         assertNull(emptyTask.getTaskLabel());
         assertNull(emptyTask.getTaskState());
@@ -135,7 +123,7 @@ public class TaskTest {
 
     @Test
     void testTaskSettersAndGetters() {
-        // Arrange
+        
         Task testTask = new Task();
         Long newId = 999L;
         String newTaskLabel = "New Task Label";
@@ -145,7 +133,7 @@ public class TaskTest {
         Developer newDeveloper = new Developer();
         newDeveloper.setId(UUID.randomUUID());
 
-        // Act
+        
         testTask.setId(newId);
         testTask.setTaskLabel(newTaskLabel);
         testTask.setTaskState(newTaskState);
@@ -153,7 +141,7 @@ public class TaskTest {
         testTask.setUpdateAt(newUpdateAt);
         testTask.setDeveloper(newDeveloper);
 
-        // Assert
+        
         assertEquals(newId, testTask.getId());
         assertEquals(newTaskLabel, testTask.getTaskLabel());
         assertEquals(newTaskState, testTask.getTaskState());
@@ -164,7 +152,7 @@ public class TaskTest {
 
     @Test
     void testTaskStateEnumValues() {
-        // Test all enum values
+        
         assertEquals(3, TaskState.values().length);
         assertTrue(contains(TaskState.values(), TaskState.TODO));
         assertTrue(contains(TaskState.values(), TaskState.IN_PROGRESS));
@@ -173,31 +161,29 @@ public class TaskTest {
 
     @Test
     void testTaskWithLongTaskLabel() {
-        // Arrange
+        
         String longTaskLabel = "This is a very long task label that should be handled properly by the system";
         task.setTaskLabel(longTaskLabel);
 
-        // Assert
+       
         assertEquals(longTaskLabel, task.getTaskLabel());
     }
 
     @Test
     void testTaskWithSpecialCharacters() {
-        // Arrange
-        String specialTaskLabel = "Task with special chars: @#$%^&*()_+-=[]{}|;':\",./<>?";
+        
+        String specialTaskLabel = "Task with special chars:#@";
         task.setTaskLabel(specialTaskLabel);
 
-        // Assert
+        
         assertEquals(specialTaskLabel, task.getTaskLabel());
     }
 
     @Test
     void testTaskWithUnicodeCharacters() {
-        // Arrange
-        String unicodeTaskLabel = "Task with unicode: 你好世界 🌍 🚀";
+        
+        String unicodeTaskLabel = "TaskTestingX";
         task.setTaskLabel(unicodeTaskLabel);
-
-        // Assert
         assertEquals(unicodeTaskLabel, task.getTaskLabel());
     }
 

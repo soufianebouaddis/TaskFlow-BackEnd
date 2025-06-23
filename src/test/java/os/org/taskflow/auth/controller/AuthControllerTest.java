@@ -21,7 +21,6 @@ import os.org.taskflow.auth.entity.User;
 import os.org.taskflow.auth.service.UserService;
 import os.org.taskflow.constant.Constant;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -55,7 +54,7 @@ public class AuthControllerTest {
 
     @Test
     void register_ValidRequest_ReturnsSuccess() throws Exception {
-        // Arrange
+        
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("John");
         registerRequest.setLastName("Doe");
@@ -71,7 +70,7 @@ public class AuthControllerTest {
 
         when(userService.register(any(RegisterRequest.class))).thenReturn(Optional.of(expectedUser));
 
-        // Act & Assert
+        
         mockMvc.perform(post("/api/v1/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(registerRequest)))
@@ -86,7 +85,7 @@ public class AuthControllerTest {
 
     @Test
     void login_ValidRequest_ReturnsSuccess() throws Exception {
-        // Arrange
+        
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("john.doe@example.com");
         loginRequest.setPassword("password123");
@@ -103,7 +102,7 @@ public class AuthControllerTest {
 
         when(userService.authenticate(any(LoginRequest.class))).thenReturn(cookieMap);
 
-        // Act & Assert
+        
         mockMvc.perform(post("/api/v1/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginRequest)))
@@ -117,7 +116,7 @@ public class AuthControllerTest {
 
     @Test
     void profile_ValidRequest_ReturnsUserProfile() throws Exception {
-        // Arrange
+        
         Profile expectedProfile = new Profile();
         expectedProfile.setId(UUID.randomUUID());
         expectedProfile.setFirstName("John");
@@ -127,7 +126,7 @@ public class AuthControllerTest {
 
         when(userService.profile()).thenReturn(Optional.of(expectedProfile));
 
-        // Act & Assert
+        
         mockMvc.perform(get("/api/v1/auth/profile"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
@@ -141,7 +140,7 @@ public class AuthControllerTest {
 
     @Test
     void updateProfile_ValidRequest_ReturnsSuccess() throws Exception {
-        // Arrange
+        
         UUID userId = UUID.randomUUID();
         UpdateRequest updateRequest = new UpdateRequest();
         updateRequest.setFirstName("Jane");
@@ -149,7 +148,7 @@ public class AuthControllerTest {
 
         doNothing().when(userService).updateProfile(any(UUID.class), any(UpdateRequest.class));
 
-        // Act & Assert
+        
         mockMvc.perform(put("/api/v1/auth/{id}", userId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
@@ -162,12 +161,12 @@ public class AuthControllerTest {
 
     @Test
     void logout_ValidRequest_ReturnsSuccess() throws Exception {
-        // Arrange
+        
         Authentication authentication = mock(Authentication.class);
 
         doNothing().when(logoutHandler).logout(any(), any(), any(Authentication.class));
 
-        // Act & Assert
+        
         mockMvc.perform(post("/api/v1/auth/logout")
                 .principal(authentication))
                 .andExpect(status().isOk())

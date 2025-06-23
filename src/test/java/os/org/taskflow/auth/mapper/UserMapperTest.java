@@ -37,7 +37,7 @@ public class UserMapperTest {
 
     @Test
     void testToUser_ValidRegisterRequest_ReturnsUser() {
-        // Arrange
+        
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("John");
         registerRequest.setLastName("Doe");
@@ -46,10 +46,10 @@ public class UserMapperTest {
         registerRequest.setRole("DEVELOPER");
         registerRequest.setDeveloperType(DeveloperType.FRONTEND);
 
-        // Act
+        
         User user = userMapper.toUser(registerRequest);
 
-        // Assert
+        
         assertNotNull(user);
         assertEquals("John", user.getFirstName());
         assertEquals("Doe", user.getLastName());
@@ -59,7 +59,7 @@ public class UserMapperTest {
 
     @Test
     void testToDto_ValidUser_ReturnsRegisterRequest() {
-        // Arrange
+        
         User user = new User();
         user.setId(userId);
         user.setFirstName("John");
@@ -71,10 +71,10 @@ public class UserMapperTest {
         role.setRoleName("DEVELOPER");
         user.setRole(role);
 
-        // Act
+        
         RegisterRequest registerRequest = userMapper.toDto(user);
 
-        // Assert
+        
         assertNotNull(registerRequest);
         assertEquals("John", registerRequest.getFirstName());
         assertEquals("Doe", registerRequest.getLastName());
@@ -85,7 +85,7 @@ public class UserMapperTest {
 
     @Test
     void testUserToProfile_ValidUser_ReturnsProfile() {
-        // Arrange
+        
         User user = new User();
         user.setId(userId);
         user.setFirstName("John");
@@ -97,10 +97,10 @@ public class UserMapperTest {
         role.setRoleName("DEVELOPER");
         user.setRole(role);
 
-        // Act
+        
         Profile profile = userMapper.userToProfile(user);
 
-        // Assert
+        
         assertNotNull(profile);
         assertEquals(userId, profile.getId());
         assertEquals("John", profile.getFirstName());
@@ -112,7 +112,7 @@ public class UserMapperTest {
 
     @Test
     void testToManager_ValidRegisterRequest_ReturnsManager() {
-        // Arrange
+        
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("Jane");
         registerRequest.setLastName("Smith");
@@ -120,10 +120,10 @@ public class UserMapperTest {
         registerRequest.setPassword("password123");
         registerRequest.setRole("MANAGER");
 
-        // Act
+        
         Manager manager = userMapper.toManager(registerRequest);
 
-        // Assert
+        
         assertNotNull(manager);
         assertEquals("Jane", manager.getFirstName());
         assertEquals("Smith", manager.getLastName());
@@ -133,7 +133,7 @@ public class UserMapperTest {
 
     @Test
     void testToDeveloper_ValidRegisterRequest_ReturnsDeveloper() {
-        // Arrange
+        
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("Alice");
         registerRequest.setLastName("Johnson");
@@ -142,10 +142,10 @@ public class UserMapperTest {
         registerRequest.setRole("DEVELOPER");
         registerRequest.setDeveloperType(DeveloperType.BACKEND);
 
-        // Act
+        
         Developer developer = userMapper.toDeveloper(registerRequest);
 
-        // Assert
+        
         assertNotNull(developer);
         assertEquals("Alice", developer.getFirstName());
         assertEquals("Johnson", developer.getLastName());
@@ -155,7 +155,7 @@ public class UserMapperTest {
 
     @Test
     void testDeveloperToProfile_ValidDeveloper_ReturnsProfile() {
-        // Arrange
+        
         Developer developer = new Developer();
         developer.setId(userId);
         developer.setFirstName("John");
@@ -177,10 +177,10 @@ public class UserMapperTest {
         List<Task> tasks = Arrays.asList(task1, task2);
         developer.setTasks(tasks);
 
-        // Act
+        
         Profile profile = userMapper.developerToProfile(developer);
 
-        // Assert
+        
         assertNotNull(profile);
         assertEquals(userId, profile.getId());
         assertEquals("John", profile.getFirstName());
@@ -195,7 +195,7 @@ public class UserMapperTest {
 
     @Test
     void testManagerToProfile_ValidManager_ReturnsProfile() {
-        // Arrange
+        
         Manager manager = new Manager();
         manager.setId(userId);
         manager.setFirstName("Jane");
@@ -216,10 +216,10 @@ public class UserMapperTest {
         List<Developer> developers = Arrays.asList(dev1, dev2);
         manager.setDevelopers(developers);
 
-        // Act
+        
         Profile profile = userMapper.managerToProfile(manager);
 
-        // Assert
+        
         assertNotNull(profile);
         assertEquals(userId, profile.getId());
         assertEquals("Jane", profile.getFirstName());
@@ -234,16 +234,16 @@ public class UserMapperTest {
 
     @Test
     void testToTaskDTO_ValidTask_ReturnsTaskDTO() {
-        // Arrange
+        
         Task task = new Task();
         task.setId(1L);
         task.setTaskLabel("Test Task");
         task.setTaskState(TaskState.TODO);
 
-        // Act
+        
         TaskDTO taskDTO = userMapper.toTaskDTO(task);
 
-        // Assert
+        
         assertNotNull(taskDTO);
         assertEquals(1L, taskDTO.getId());
         assertEquals("Test Task", taskDTO.getTaskLabel());
@@ -252,7 +252,7 @@ public class UserMapperTest {
 
     @Test
     void testToTaskDTOs_ValidTaskList_ReturnsTaskDTOList() {
-        // Arrange
+        
         Task task1 = new Task();
         task1.setId(1L);
         task1.setTaskLabel("Task 1");
@@ -265,10 +265,10 @@ public class UserMapperTest {
 
         List<Task> tasks = Arrays.asList(task1, task2);
 
-        // Act
+        
         List<TaskDTO> taskDTOs = userMapper.toTaskDTOs(tasks);
 
-        // Assert
+        
         assertNotNull(taskDTOs);
         assertEquals(2, taskDTOs.size());
         assertEquals(1L, taskDTOs.get(0).getId());
@@ -281,7 +281,7 @@ public class UserMapperTest {
 
     @Test
     void testToDeveloperDTO_ValidDeveloper_ReturnsDeveloperDTO() {
-        // Arrange
+        
         Developer developer = new Developer();
         developer.setId(userId);
         developer.setFirstName("John");
@@ -297,10 +297,10 @@ public class UserMapperTest {
         List<Task> tasks = Arrays.asList(task);
         developer.setTasks(tasks);
 
-        // Act
+        
         DeveloperDTO developerDTO = userMapper.toDeveloperDTO(developer);
 
-        // Assert
+        
         assertNotNull(developerDTO);
         assertEquals("John", developerDTO.getFirstName());
         assertEquals("Doe", developerDTO.getLastName());
@@ -312,7 +312,7 @@ public class UserMapperTest {
 
     @Test
     void testToDeveloperDTOs_ValidDeveloperList_ReturnsDeveloperDTOList() {
-        // Arrange
+        
         Developer dev1 = new Developer();
         dev1.setId(UUID.randomUUID());
         dev1.setFirstName("Dev1");
@@ -329,10 +329,10 @@ public class UserMapperTest {
 
         List<Developer> developers = Arrays.asList(dev1, dev2);
 
-        // Act
+        
         List<DeveloperDTO> developerDTOs = userMapper.toDeveloperDTOs(developers);
 
-        // Assert
+        
         assertNotNull(developerDTOs);
         assertEquals(2, developerDTOs.size());
         assertEquals("Dev1", developerDTOs.get(0).getFirstName());
@@ -347,26 +347,26 @@ public class UserMapperTest {
 
     @Test
     void testToTaskDTOs_EmptyList_ReturnsEmptyList() {
-        // Arrange
+        
         List<Task> emptyTasks = Arrays.asList();
 
-        // Act
+        
         List<TaskDTO> taskDTOs = userMapper.toTaskDTOs(emptyTasks);
 
-        // Assert
+        
         assertNotNull(taskDTOs);
         assertEquals(0, taskDTOs.size());
     }
 
     @Test
     void testToDeveloperDTOs_EmptyList_ReturnsEmptyList() {
-        // Arrange
+        
         List<Developer> emptyDevelopers = Arrays.asList();
 
-        // Act
+        
         List<DeveloperDTO> developerDTOs = userMapper.toDeveloperDTOs(emptyDevelopers);
 
-        // Assert
+        
         assertNotNull(developerDTOs);
         assertEquals(0, developerDTOs.size());
     }
