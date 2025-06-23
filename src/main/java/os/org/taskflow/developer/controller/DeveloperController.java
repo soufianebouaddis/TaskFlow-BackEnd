@@ -1,6 +1,7 @@
 package os.org.taskflow.developer.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class DeveloperController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('MANAGER','DEVELOPER')")
     public ApiResponseEntity<Optional<List<Developer>>> developers() {
         try{
             return new ApiResponseEntity(

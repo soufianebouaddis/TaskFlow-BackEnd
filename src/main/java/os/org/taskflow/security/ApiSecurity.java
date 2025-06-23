@@ -47,6 +47,7 @@ public class ApiSecurity {
             "/api/v1/auth/register",
             "/api/v1/auth/refreshToken",
             "/api/v1/auth/logout",
+            "/actuator/health"
     };
 
     @Autowired
@@ -74,6 +75,7 @@ public class ApiSecurity {
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/v1/auth/refreshToken").permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/v1/auth/login").permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/v1/auth/public-key").permitAll())
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/actuator/health").permitAll())
                 .authorizeHttpRequests(
                 authorize -> authorize.requestMatchers("/swagger-ui/**", "/swagger-ui.html",
                         "/v3/api-docs/**").permitAll())
