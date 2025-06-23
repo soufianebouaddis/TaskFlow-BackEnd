@@ -127,7 +127,7 @@ java -jar target/taskflow-0.0.1-SNAPSHOT.jar
 ### Developers (`/api/v1/developers/`)
 | Method | Endpoint | Description | Access |
 |--------|----------|-------------|---------|
-| GET | `/` | Get all developers | Authenticated |
+| GET | `/` | Get all developers | MANAGER, DEVELOPER |
 
 ### Manager Operations (`/api/v1/manager/`)
 | Method | Endpoint | Description | Access |
