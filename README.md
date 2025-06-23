@@ -65,7 +65,7 @@ cd taskflow
 ### 2. Run with Docker Compose
 ```bash
 # Run in detached mode
-docker-compose up -d 
+docker-compose up -d  --build
 ```
 
 ### 3. Access the Application
