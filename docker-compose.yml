@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: taskflow_postgres
+    environment:
+      POSTGRES_DB: taskflow_dev
+      POSTGRES_USER: taskflow
+      POSTGRES_PASSWORD: taskflowpass
+    ports:
+      - "5423:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    container_name: taskflow_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/taskflow_dev
+      SPRING_DATASOURCE_USERNAME: taskflow
+      SPRING_DATASOURCE_PASSWORD: taskflowpass
+    ports:
+      - "8880:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c", "until nc -z db 5432; do sleep 1; done; exec java -jar app.jar"]
+volumes:
+  pgdata: 
