@@ -55,7 +55,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('MANAGER','DEVELOPER')")
-    public ApiResponseEntity<Optional<Task>> updateTask(@PathVariable("id")Long id , @RequestBody @Valid Task task){
+    public ApiResponseEntity<Optional<Task>> updateTask(@PathVariable("id")Long id , @RequestBody @Valid TaskDTO task){
         return new ApiResponseEntity<>(
                 Instant.now(),
                 true,

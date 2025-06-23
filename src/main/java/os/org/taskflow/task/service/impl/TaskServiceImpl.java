@@ -32,11 +32,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Optional<Task> update(Long id, Task Task) {
+    public Optional<Task> update(Long id, TaskDTO Task) {
         return Optional.ofNullable(taskRepository.findById(id).map((it) -> {
             it.setTaskLabel(Task.getTaskLabel());
             it.setTaskState(Task.getTaskState());
             it.setUpdateAt(Instant.now());
+            System.out.println("UPDATED");
             return taskRepository.save(it);
         }).orElseThrow(
                 () -> new EntityNotFoundException("Task Not Found with id : " + id)

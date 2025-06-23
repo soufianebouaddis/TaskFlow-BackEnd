@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface TaskService {
     Optional<Task> create(TaskDTO taskDTO);
-    Optional<Task> update(Long id,Task Task);
+    Optional<Task> update(Long id,TaskDTO Task);
     List<Task> findAll();
     void delete(Long id);
 }
