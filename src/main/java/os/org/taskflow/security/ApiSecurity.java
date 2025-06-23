@@ -88,7 +88,7 @@ public class ApiSecurity {
                         .permitAll()
                         .logoutSuccessHandler((req, res, auth) -> {
                             String origin = req.getHeader("Origin");
-                            if ("http://localhost:5173".equals(origin)) {
+                            if ("http://localhost:5173".equals(origin) || "http://localhost:8080".equals(origin) ) {
                                 res.setHeader("Access-Control-Allow-Origin", origin);
                             }
                             res.setHeader("Access-Control-Allow-Credentials", "true");

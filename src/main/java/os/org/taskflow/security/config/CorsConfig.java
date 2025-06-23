@@ -28,7 +28,7 @@ public class CorsConfig implements WebMvcConfigurer {
                         HttpMethod.PUT.name(),
                         HttpMethod.DELETE.name())
                 .maxAge(MAX_AGE)
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins("http://localhost:5173","http://localhost:8080")
                 .allowCredentials(true);
     }
 }
